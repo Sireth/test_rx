@@ -1,0 +1,4 @@
+/docker/.keys/
+/cmake-*
+/docker/.env
+/.idea/

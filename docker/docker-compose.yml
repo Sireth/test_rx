@@ -1,0 +1,26 @@
+services:
+  rx_qt_docker:
+    image: sireth/rx_qt_docker:latest
+    tty: true
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        PATH_TO_KEYS: ${PATH_TO_KEYS}
+        KEY: ${KEY}
+        PASSWORD: ${PASSWORD}
+    environment:
+      - DISPLAY=$DISPLAY
+      - XAUTHORITY=${XAUTHORITY}
+      - XDG_RUNTIME_DIR
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/root/.Xauthority
+      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+      - /dev/dri/card0:/dev/dri/card0
+      - ${HOME}/Docker:/tmp/
+    ports:
+      - "2222:22"
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    privileged: true
